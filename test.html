@@ -1,23 +1,15 @@
 <!doctype html>
 <html>
 <head>
-        <meta charset="utf8">
     <style>
         .bar {
-            fill: rgb(248, 40, 33);
-        }
-        .bar2 {
-            fill: rgb(9, 29, 207);
+            fill: steelblue;
         }
     </style>
     <script src="https://d3js.org/d3.v4.min.js"></script>
 </head>
-<body>
-<svg id="svg" width="600" height="500"></svg>
-
-<br>
-
-<svg id="svg2"width="600" height="500"></svg>
+<body> 
+<svg width="600" height="500"></svg>
 <script>
 var svg = d3.select("svg"),
             margin = 200,
@@ -37,15 +29,17 @@ var g = svg.append("g")
         }
 
         xScale.domain(data.map(function(d) { return d.party; }));
-        yScale.domain([0, d3.max(data, function(d) { return d.value; })]);
+        yScale.domain([0, d3.max(data, function(d) { return parseInt(d.value); })]);
 
+		
+		
         g.append("g")
          .attr("transform", "translate(0," + height + ")")
          .call(d3.axisBottom(xScale));
 
         g.append("g")
          .call(d3.axisLeft(yScale).tickFormat(function(d){
-             return "$" + d;
+             return  d;
          }).ticks(10));
 
 
@@ -58,7 +52,6 @@ var g = svg.append("g")
          .attr("width", xScale.bandwidth())
          .attr("height", function(d) { return height - yScale(d.value); });
     });
-
 </script>
 </body>
 </html>
